@@ -62,8 +62,8 @@ const Login = () => {
 		formState: { errors, isValid },
 	} = useForm<ICombine>({
 		defaultValues: {
-			email: 'test@test.com',
-			password: '12345',
+			email: '',
+			password: '',
 		},
 		mode: 'all',
 	});

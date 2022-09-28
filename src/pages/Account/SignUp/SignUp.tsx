@@ -39,9 +39,9 @@ const SignUp = () => {
 		formState: { errors, isValid },
 	} = useForm<ICombine>({
 		defaultValues: {
-			fullName: 'New User',
-			email: 'test1@test.com',
-			password: '12345',
+			fullName: '',
+			email: '',
+			password: '',
 		},
 		mode: 'all',
 	});

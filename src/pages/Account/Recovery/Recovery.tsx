@@ -21,7 +21,7 @@ const Recovery = () => {
 		formState: { errors, isValid },
 	} = useForm<RecoveryRequest>({
 		defaultValues: {
-			email: 'test@test.com',
+			email: '',
 		},
 		mode: 'all',
 	});
