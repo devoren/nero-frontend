@@ -1,0 +1,13 @@
+.comment {
+	.delete {
+		opacity: 0;
+		align-self: center;
+		transition: all 0.2s ease-in-out;
+		visibility: hidden;
+	}
+
+	&:hover .delete {
+		opacity: 1;
+		visibility: visible;
+	}
+}

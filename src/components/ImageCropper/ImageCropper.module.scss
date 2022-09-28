@@ -1,0 +1,53 @@
+.box {
+	display: inline-block;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.img_preview {
+	overflow: hidden !important;
+
+	img {
+		width: 100%;
+	}
+}
+
+.mainCropper {
+	max-height: 604px;
+	width: 100%;
+}
+
+.cropper {
+	max-height: 200px;
+	max-width: 200px;
+	display: block;
+
+	span.cropper-view-box {
+		border-radius: 50% !important;
+	}
+}
+
+.rotateImg {
+	display: flex;
+	position: absolute;
+	right: 8px;
+	bottom: 8px;
+	background: rgb(0 0 0 / 56%);
+	padding: 2px;
+	border-radius: 4px;
+
+	.iconButton {
+		width: 24px;
+		height: 24px;
+
+		.rotateIcon {
+			color: white;
+			opacity: 0.5;
+			transition: opacity 0.3s;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+}

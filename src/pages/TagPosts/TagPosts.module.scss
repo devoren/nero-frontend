@@ -1,0 +1,16 @@
+.sectionHeader {
+	color: rgb(174, 189, 197);
+	text-transform: capitalize;
+	margin-bottom: 40px;
+	font-size: 2.5rem;
+}
+
+.columns {
+	display: grid;
+	gap: 30px;
+
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+}

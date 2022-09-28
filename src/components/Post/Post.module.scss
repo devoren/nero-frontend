@@ -1,0 +1,210 @@
+$blue: #4361ee;
+
+.root {
+	background-color: #fff;
+	border: 1px solid #dedede;
+	border-radius: 6px;
+	overflow: hidden;
+	margin-bottom: 15px;
+	position: relative;
+
+	&:hover {
+		border: 1px solid $blue;
+		box-shadow: 0 0 0 1px $blue;
+
+		.editButtons {
+			opacity: 1;
+		}
+	}
+
+	&Full {
+		&:hover {
+			background-color: #fff;
+			border: 1px solid #dedede;
+			box-shadow: none;
+		}
+	}
+}
+
+.image {
+	width: 100%;
+	height: 300px;
+	object-fit: cover;
+
+	&Full {
+		min-height: 300px;
+		height: 100%;
+	}
+}
+
+.wrapper {
+	padding: 10px 20px 20px;
+}
+
+.content {
+	margin: 30px 0 50px;
+
+	p {
+		font-size: 22px;
+		line-height: 36px;
+	}
+}
+
+.indention {
+	padding: 0;
+
+	img {
+		display: flex;
+		max-width: 100%;
+		margin: 0 auto;
+	}
+}
+
+.title {
+	font-size: 28px;
+	margin: 0;
+
+	a {
+		text-decoration: none;
+		color: #000;
+
+		&:hover {
+			color: $blue;
+		}
+	}
+
+	&Full {
+		font-size: 42px;
+		font-weight: 900;
+	}
+}
+
+.tags {
+	list-style: none;
+	padding: 0;
+	margin: 5px 0 0 0;
+
+	li {
+		display: inline-block;
+		font-size: 14px;
+		margin-right: 15px;
+		opacity: 0.5;
+
+		&:hover {
+			opacity: 1;
+		}
+
+		a {
+			text-decoration: none;
+			color: #000;
+		}
+	}
+}
+
+.postDetails {
+	list-style: none;
+	padding: 0;
+	margin: 20px 0 0 0;
+
+	li {
+		display: inline-flex;
+		align-items: center;
+		font-size: 14px;
+		margin-right: 20px;
+		opacity: 0.5;
+
+		svg {
+			font-size: 18px;
+			margin-right: 5px;
+		}
+	}
+}
+.editPost {
+	display: flex;
+	align-items: center;
+
+	Button {
+		margin: 0 5px;
+	}
+}
+
+.skeleton {
+	background-color: #fff;
+	border: 1px solid #dedede;
+	border-radius: 6px;
+	overflow: hidden;
+	margin-bottom: 15px;
+
+	&Content {
+		padding: 20px;
+	}
+
+	&Info {
+		margin-left: 50px;
+	}
+}
+
+.skeletonUser {
+	display: flex;
+
+	&Details {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.skeletonTags {
+	display: flex;
+
+	span {
+		margin-right: 15px;
+	}
+}
+
+.editButtons {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 10px;
+	opacity: 0;
+	transition: all 0.15s ease-in-out;
+}
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+}
+
+@media (max-width: 480px) {
+	h2 {
+		font-size: 1.5rem !important;
+	}
+	p {
+		font-size: 1rem !important;
+		line-height: 30px !important;
+		margin: 0 !important;
+	}
+	.indention {
+		padding: 0;
+	}
+	.content {
+		margin: 15px 0 25px;
+	}
+	.footer {
+		flex-direction: column;
+		justify-content: center;
+
+		.postDetails {
+			left: 0;
+		}
+	}
+
+	.editPost {
+		flex-direction: column;
+
+		Button {
+			margin: 5px 0;
+		}
+	}
+}
