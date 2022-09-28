@@ -33,7 +33,7 @@ const PostPage = () => {
 				title={post?.title}
 				imageUrl={
 					post?.imageUrl
-						? `http://localhost:8000${post?.imageUrl}`
+						? `${process.env.REACT_APP_API_URL}${post?.imageUrl}`
 						: undefined
 				}
 				user={post?.user}

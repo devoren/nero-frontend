@@ -8,7 +8,7 @@ import {
 import { RootState } from './store';
 import { logOut, setCredentials } from './auth/auth.slice';
 
-const baseUrl = 'http://localhost:8000';
+const baseUrl = process.env.REACT_APP_API_URL;
 const baseQuery = fetchBaseQuery({
 	baseUrl: baseUrl,
 	credentials: 'include',
