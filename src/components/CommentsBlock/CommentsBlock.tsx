@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -29,6 +30,7 @@ const CommentsBlock = ({
 	refetch,
 	isDelete = true,
 }: ICommentBlock) => {
+	const navigate = useNavigate();
 	const [deleteComment] = useDeleteCommentMutation();
 	const { user } = useAuth();
 
@@ -47,7 +49,16 @@ const CommentsBlock = ({
 			<List>
 				{(isLoading ? [...Array(5)] : items)?.map(
 					(obj: IComment, index) => (
-						<div key={index} className={styles.comment}>
+						<div
+							key={index}
+							className={styles.comment}
+							onClick={() =>
+								!isDelete && navigate(`/posts/${obj.post._id}`)
+							}
+							style={{
+								cursor: !isDelete ? 'pointer' : 'default',
+							}}
+						>
 							<ListItem alignItems="flex-start">
 								<ListItemAvatar>
 									{isLoading ? (
