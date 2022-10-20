@@ -10,6 +10,7 @@ import { ThemeProvider } from '@mui/material';
 import { theme } from './theme';
 import store, { persistor } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 // initiate all posts to use EntityAdapter features like select by id, select by all posts...
 // store.dispatch(normalizedPostApi.endpoints.getAllPosts.initiate());
@@ -31,3 +32,8 @@ root.render(
 		</ThemeProvider>
 	</React.StrictMode>
 );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();

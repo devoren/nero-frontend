@@ -1,19 +1,19 @@
-import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import clsx from 'clsx';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Clear';
-import EditIcon from '@mui/icons-material/Edit';
-import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import CommentIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import React, { ReactNode } from "react";
+import { Link } from "react-router-dom";
+import clsx from "clsx";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Clear";
+import EditIcon from "@mui/icons-material/Edit";
+import EyeIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import CommentIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 
-import styles from './Post.module.scss';
-import { PostSkeleton } from './PostSkeleton';
-import { useDeletePostMutation } from '../../store/post/post.api';
-import { Button } from '@mui/material';
-import { useAuth } from '../../hooks/useAuth';
-import { IUser } from '../../models';
-import UserInfo from '../UserInfo';
+import styles from "./Post.module.scss";
+import { PostSkeleton } from "./PostSkeleton";
+import { useDeletePostMutation } from "../../store/post/post.api";
+import { Button } from "@mui/material";
+import { useAuth } from "../../hooks/useAuth";
+import { IUser } from "../../models";
+import UserInfo from "../UserInfo";
 
 interface IPost {
 	_id?: string;
@@ -73,6 +73,10 @@ const Post = (props: IPost) => {
 					})}
 					src={props.imageUrl}
 					alt={props.title}
+					style={{
+						pointerEvents: "none",
+					}}
+					loading="lazy"
 				/>
 			)}
 			<div className={styles.wrapper}>
@@ -120,7 +124,7 @@ const Post = (props: IPost) => {
 							<div className={styles.editPost}>
 								<Link
 									to={`/posts/${props._id}/edit`}
-									style={{ textDecoration: 'none' }}
+									style={{ textDecoration: "none" }}
 								>
 									<Button
 										variant="outlined"

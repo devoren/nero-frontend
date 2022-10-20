@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { memo } from "react";
 
-import Dialog from '@mui/material/Dialog';
+import Dialog from "@mui/material/Dialog";
 import {
 	Button,
 	DialogActions,
 	DialogContent,
 	DialogTitle,
 	IconButton,
-} from '@mui/material';
-import Divider from '@mui/material/Divider';
-import { Close } from '@mui/icons-material';
+} from "@mui/material";
+import Divider from "@mui/material/Divider";
+import { Close } from "@mui/icons-material";
 
-import styles from './Modal.module.scss';
+import styles from "./Modal.module.scss";
 
 export interface DialogTitleProps {
 	id: string;
@@ -23,14 +23,14 @@ const ModalTitle = (props: DialogTitleProps) => {
 	const { children, onClose, ...other } = props;
 
 	return (
-		<DialogTitle sx={{ m: 0, p: 2, fontSize: '14px' }} {...other}>
+		<DialogTitle sx={{ m: 0, p: 2, fontSize: "14px" }} {...other}>
 			{children}
 			{onClose ? (
 				<IconButton
 					aria-label="close"
 					onClick={onClose}
 					sx={{
-						position: 'absolute',
+						position: "absolute",
 						right: 8,
 						top: 8,
 						color: (theme) => theme.palette.grey[500],
@@ -71,30 +71,30 @@ const Modal: React.FC<IModal> = (props) => {
 				{props.title}
 			</ModalTitle>
 			<Divider />
-			<DialogContent style={{ paddingBottom: '12px' }}>
+			<DialogContent style={{ paddingBottom: "12px" }}>
 				<div className={styles.modal_desc}>
 					{props.desc_1}
 					<br />
-					{props.desc_2 ? props.desc_2 : ''}
+					{props.desc_2 ? props.desc_2 : ""}
 				</div>
 				{props.children}
 
 				<Divider
 					style={{
-						paddingTop: '20px',
-						width: '100%',
+						paddingTop: "20px",
+						width: "100%",
 					}}
 				/>
 				<DialogActions
 					style={{
-						position: 'relative',
-						justifyContent: 'center',
+						position: "relative",
+						justifyContent: "center",
 						paddingBottom: 0,
-						paddingTop: '8px',
+						paddingTop: "8px",
 					}}
 				>
 					{props.bottomText ? (
-						<p style={{ textAlign: 'center', fontSize: '12px' }}>
+						<p style={{ textAlign: "center", fontSize: "12px" }}>
 							{props.bottomText}
 						</p>
 					) : (
@@ -144,4 +144,4 @@ const Modal: React.FC<IModal> = (props) => {
 	);
 };
 
-export default Modal;
+export default memo(Modal);

@@ -1,27 +1,28 @@
-import React, { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { memo, ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import Skeleton from '@mui/material/Skeleton';
-import { IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import styles from './CommentsBlock.module.scss';
-import { IComment } from '../../models';
-import { useDeleteCommentMutation } from '../../store/post/post.api';
-import { useAuth } from '../../hooks/useAuth';
-import SideBlock from '../SideBlock';
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import Skeleton from "@mui/material/Skeleton";
+import { IconButton, ListItemButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import styles from "./CommentsBlock.module.scss";
+import { IComment } from "../../models";
+import { useDeleteCommentMutation } from "../../store/post/post.api";
+import { useAuth } from "../../hooks/useAuth";
+import SideBlock from "../SideBlock";
 
 interface ICommentBlock {
 	items: Partial<IComment>[];
 	children?: ReactNode;
-	isLoading?: boolean;
+	isLoading: boolean;
 	refetch: () => void;
 	isDelete?: boolean;
+	isPost?: boolean;
 }
 const CommentsBlock = ({
 	items,
@@ -29,6 +30,7 @@ const CommentsBlock = ({
 	isLoading = true,
 	refetch,
 	isDelete = true,
+	isPost = false,
 }: ICommentBlock) => {
 	const navigate = useNavigate();
 	const [deleteComment] = useDeleteCommentMutation();
@@ -45,21 +47,28 @@ const CommentsBlock = ({
 	};
 
 	return (
-		<SideBlock title="Комментарии">
+		<SideBlock title="Комментарии" isPost={isPost}>
 			<List>
 				{(isLoading ? [...Array(5)] : items)?.map(
 					(obj: IComment, index) => (
-						<div
-							key={index}
+						<ListItem
+							alignItems="flex-start"
+							key={`${items ? Math.random() * Math.PI : index}`}
 							className={styles.comment}
-							onClick={() =>
-								!isDelete && navigate(`/posts/${obj.post._id}`)
-							}
-							style={{
-								cursor: !isDelete ? 'pointer' : 'default',
-							}}
+							disablePadding
 						>
-							<ListItem alignItems="flex-start">
+							<ListItemButton
+								onClick={() =>
+									!isDelete &&
+									navigate(`/posts/${obj.post._id}`)
+								}
+								className={
+									isDelete
+										? styles.unclickable__button
+										: styles.clickable__button
+								}
+								disableRipple={isDelete}
+							>
 								<ListItemAvatar>
 									{isLoading ? (
 										<Skeleton
@@ -77,8 +86,8 @@ const CommentsBlock = ({
 								{isLoading ? (
 									<div
 										style={{
-											display: 'flex',
-											flexDirection: 'column',
+											display: "flex",
+											flexDirection: "column",
 										}}
 									>
 										<Skeleton
@@ -95,23 +104,25 @@ const CommentsBlock = ({
 								) : (
 									<div
 										style={{
-											display: 'flex',
-											flexDirection: 'column',
-											width: '100%',
+											display: "flex",
+											flexDirection: "column",
+											width: "100%",
 										}}
 									>
 										<ListItemText
 											primary={obj.user?.fullName}
 											secondary={obj.text}
-											style={{ marginBottom: 0 }}
+											style={{
+												marginBottom: 0,
+											}}
 											secondaryTypographyProps={{
-												color: '#000000DE',
+												color: "#000000DE",
 											}}
 										/>
 										<p
 											style={{
-												fontSize: '0.8rem',
-												color: '#939393',
+												fontSize: "0.8rem",
+												color: "#939393",
 												marginBottom: 0,
 											}}
 										>
@@ -130,9 +141,11 @@ const CommentsBlock = ({
 										<DeleteIcon />
 									</IconButton>
 								)}
-							</ListItem>
-							<Divider variant="inset" component="li" />
-						</div>
+							</ListItemButton>
+							{isDelete && index !== items.length - 1 && (
+								<Divider className={styles.divider} />
+							)}
+						</ListItem>
 					)
 				)}
 			</List>
@@ -141,4 +154,4 @@ const CommentsBlock = ({
 	);
 };
 
-export default CommentsBlock;
+export default memo(CommentsBlock);

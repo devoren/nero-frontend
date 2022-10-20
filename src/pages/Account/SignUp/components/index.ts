@@ -1,4 +1,4 @@
-import { ModalCropper } from './ModalCropper';
-import { TextFields } from './TextFields';
+import ModalCropper from "./ModalCropper";
+import { TextFields } from "./TextFields";
 
 export { TextFields, ModalCropper };

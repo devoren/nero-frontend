@@ -1,4 +1,18 @@
 .comment {
+	flex-direction: column;
+	.clickable__button {
+		width: inherit;
+		cursor: pointer;
+	}
+
+	.unclickable__button {
+		cursor: default;
+
+		&:hover {
+			background-color: transparent;
+		}
+	}
+
 	.delete {
 		opacity: 0;
 		align-self: center;
@@ -9,5 +23,9 @@
 	&:hover .delete {
 		opacity: 1;
 		visibility: visible;
+	}
+
+	.divider {
+		width: inherit;
 	}
 }

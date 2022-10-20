@@ -1,25 +1,25 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { TextField, Typography, Paper, Button, Avatar } from '@mui/material';
+import React, { memo } from "react";
+import { Navigate } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { TextField, Typography, Paper, Button, Avatar } from "@mui/material";
 
-import { TF } from './components/TFconstants';
-import { TextFields } from './components/TextFields';
-import { useToken } from '../../../hooks/useToken';
-import { SignUpRequest, VerifyRequest } from '../../../models';
+import { TF } from "./components/TFconstants";
+import { TextFields } from "./components/TextFields";
+import { useToken } from "../../../hooks/useToken";
+import { SignUpRequest, VerifyRequest } from "../../../models";
 import {
 	useSignUpMutation,
 	useVerifyMutation,
 	useResendCodeMutation,
-} from '../../../store/auth/auth.api';
-import { useAppDispatch } from '../../../store/store';
-import { setCredentials } from '../../../store/auth/auth.slice';
-import { useUploadPhotoMutation } from '../../../store/post/post.api';
-import SecondsToTime from '../../../utils/SecondsToTime';
+} from "../../../store/auth/auth.api";
+import { useAppDispatch } from "../../../store/store";
+import { setCredentials } from "../../../store/auth/auth.slice";
+import { useUploadPhotoMutation } from "../../../store/post/post.api";
+import SecondsToTime from "../../../utils/SecondsToTime";
 
-import { ModalCropper } from './components';
-import styles from './SignUp.module.scss';
-import { getWithExpiry, setWithExpiry } from '../../../utils/localStorageTTL';
+import { ModalCropper } from "./components";
+import styles from "./SignUp.module.scss";
+import { getWithExpiry, setWithExpiry } from "../../../utils/localStorageTTL";
 
 interface ICombine extends SignUpRequest, VerifyRequest {}
 
@@ -39,14 +39,14 @@ const SignUp = () => {
 		formState: { errors, isValid },
 	} = useForm<ICombine>({
 		defaultValues: {
-			fullName: '',
-			email: '',
-			password: '',
+			fullName: "",
+			email: "",
+			password: "",
 		},
-		mode: 'all',
+		mode: "all",
 	});
 	const [uploadPhoto] = useUploadPhotoMutation();
-	const [imageUrl, setImageUrl] = React.useState('');
+	const [imageUrl, setImageUrl] = React.useState("");
 	const [inputFile, setInputFile] = React.useState<File>();
 	const [originalInputFile, setOriginalInputFile] = React.useState<File>();
 	const [open, setOpen] = React.useState(false);
@@ -55,7 +55,7 @@ const SignUp = () => {
 	const [isActive, setIsActive] = React.useState(false);
 	const [seconds, setSeconds] = React.useState(60);
 	const [count, setCount] = React.useState(
-		getWithExpiry('signUpCount')?.count ?? 1
+		getWithExpiry("signUpCount")?.count ?? 1
 	);
 	const timerRan = React.useRef(false);
 
@@ -81,9 +81,9 @@ const SignUp = () => {
 	const onSubmit: SubmitHandler<SignUpRequest> = async (data) => {
 		try {
 			const formData = new FormData();
-			inputFile && formData.append('image', inputFile);
+			inputFile && formData.append("image", inputFile);
 			const formOData = new FormData();
-			originalInputFile && formOData.append('image', originalInputFile);
+			originalInputFile && formOData.append("image", originalInputFile);
 			if (inputFile) {
 				const response = await uploadPhoto(formData).unwrap();
 				const responseO = await uploadPhoto(formOData).unwrap();
@@ -103,10 +103,10 @@ const SignUp = () => {
 			// );
 		} catch (err: any) {
 			setError(
-				'email',
+				"email",
 				{
-					type: 'shouldUnregister',
-					message: 'Этот электронный адрес уже используется.',
+					type: "shouldUnregister",
+					message: "Этот электронный адрес уже используется.",
 				},
 				{ shouldFocus: true }
 			);
@@ -117,7 +117,7 @@ const SignUp = () => {
 		try {
 			const { user, accessToken } = await verify(data).unwrap();
 			console.log(user, accessToken);
-			localStorage.removeItem('signUpCount');
+			localStorage.removeItem("signUpCount");
 			dispatch(
 				setCredentials({
 					user,
@@ -126,10 +126,10 @@ const SignUp = () => {
 			);
 		} catch (err: any) {
 			setError(
-				'otp',
+				"otp",
 				{
-					type: 'value',
-					message: 'Неверный проверочный код',
+					type: "value",
+					message: "Неверный проверочный код",
 				},
 				{ shouldFocus: true }
 			);
@@ -137,7 +137,7 @@ const SignUp = () => {
 	};
 
 	if (token) {
-		return <Navigate to={'/'} />;
+		return <Navigate to={"/"} />;
 	}
 
 	const handleOpen = () => {
@@ -150,11 +150,11 @@ const SignUp = () => {
 	const prevStep = () => setStep(step - 1);
 	const nextStep = () => setStep(step + 1);
 
-	const email = getValues('email');
+	const email = getValues("email");
 	const handleResendCode = async () => {
-		getWithExpiry('signUpCount')?.email !== email &&
-			getWithExpiry('signUpCount')?.count! < 5 &&
-			localStorage.removeItem('signUpCount');
+		getWithExpiry("signUpCount")?.email !== email &&
+			getWithExpiry("signUpCount")?.count! < 5 &&
+			localStorage.removeItem("signUpCount");
 
 		if (count < 5) {
 			await resendCode({
@@ -164,15 +164,15 @@ const SignUp = () => {
 				.then((res) => {
 					res.message && setSeconds(60);
 					setCount(count + 1);
-					setWithExpiry('signUpCount', count, email, 5 * 60);
+					setWithExpiry("signUpCount", count, email, 5 * 60);
 				});
 		} else {
 			setError(
-				'otp',
+				"otp",
 				{
-					type: 'disabled',
+					type: "disabled",
 					message:
-						'Вы отправляете слишком много проверочных кодов. Пожалуйста, попробуйте позже',
+						"Вы отправляете слишком много проверочных кодов. Пожалуйста, попробуйте позже",
 				},
 				{ shouldFocus: true }
 			);
@@ -194,7 +194,7 @@ const SignUp = () => {
 						>
 							<Avatar
 								sx={{ width: 100, height: 100 }}
-								src={imageUrl ?? '/public/noavatar.png'}
+								src={imageUrl ?? "/public/noavatar.png"}
 							/>
 						</Button>
 					</div>
@@ -255,15 +255,15 @@ const SignUp = () => {
 					</div>
 					<form onSubmit={handleSubmit(onVerify)}>
 						<TextField
-							type={'text'}
+							type={"text"}
 							className={styles.field}
-							label={'Введите код'}
+							label={"Введите код"}
 							fullWidth
 							error={Boolean(errors?.otp?.message)}
 							helperText={errors?.otp?.message}
 							disabled={count > 4}
-							{...register('otp', {
-								required: 'Введите код',
+							{...register("otp", {
+								required: "Введите код",
 								// pattern: {
 								// 	value: /^[0-9]{5,8}./g,
 								// 	message: 'Неверный формат кода',
@@ -275,7 +275,7 @@ const SignUp = () => {
 							size="large"
 							variant="contained"
 							fullWidth
-							disabled={!getValues('otp')?.length}
+							disabled={!getValues("otp")?.length}
 						>
 							Подтвердить
 						</Button>
@@ -287,7 +287,7 @@ const SignUp = () => {
 						>
 							{seconds ? (
 								<span>
-									Отправить повторно через{' '}
+									Отправить повторно через{" "}
 									{SecondsToTime(seconds)}
 								</span>
 							) : (
@@ -301,4 +301,4 @@ const SignUp = () => {
 	);
 };
 
-export default SignUp;
+export default memo(SignUp);

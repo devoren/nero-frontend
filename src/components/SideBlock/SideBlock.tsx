@@ -6,11 +6,20 @@ import Paper from '@mui/material/Paper';
 interface ISideBlock {
 	title: string;
 	children: ReactNode;
+	isPost?: boolean;
 }
 
-const SideBlock = ({ title, children }: ISideBlock) => {
+const SideBlock = ({ title, children, isPost }: ISideBlock) => {
 	return (
-		<Paper classes={{ root: styles.root }}>
+		<Paper
+			classes={{ root: styles.root }}
+			sx={{
+				display:
+					title === 'Комментарии' && !isPost
+						? { xs: 'none', sm: 'block' }
+						: 'block',
+			}}
+		>
 			<Typography variant="h6" classes={{ root: styles.title }}>
 				{title}
 			</Typography>

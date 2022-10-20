@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
-import ImageCropper from '../../../../components/ImageCropper';
-import Modal from '../../../../components/Modal';
+import React, { memo, useRef, useState } from "react";
+import ImageCropper from "../../../../components/ImageCropper";
+import Modal from "../../../../components/Modal";
 
-import 'cropperjs/dist/cropper.css';
+import "cropperjs/dist/cropper.css";
 
 interface IModalCropper {
 	step: number;
@@ -19,15 +19,15 @@ interface IModalCropper {
 	setImageUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const ModalCropper: React.FC<IModalCropper> = (props) => {
-	const [image, setImage] = useState('');
-	const [cropData, setCropData] = useState('#');
+const ModalCropper: React.FC<IModalCropper> = (props) => {
+	const [image, setImage] = useState("");
+	const [cropData, setCropData] = useState("#");
 	const [cropper, setCropper] = useState<Cropper>();
 	const [roundedCropper, setRoundedCropper] = useState<Cropper>();
 	const inputFileRef = useRef<HTMLInputElement>(null);
-	const [fileName, setFileName] = useState('');
+	const [fileName, setFileName] = useState("");
 	const getCropData = () => {
-		if (typeof cropper !== 'undefined') {
+		if (typeof cropper !== "undefined") {
 			cropper.getCroppedCanvas().toBlob(
 				(blob) => {
 					const url = blob && URL.createObjectURL(blob);
@@ -35,18 +35,18 @@ export const ModalCropper: React.FC<IModalCropper> = (props) => {
 					const file =
 						blob &&
 						new File([blob], fileName, {
-							type: 'image/jpg',
+							type: "image/jpg",
 						});
 					file && props.setOriginalInputFile(file);
 				},
-				'image/jpg',
+				"image/jpg",
 				1
 			);
 		}
 	};
 
 	const getRoundedCropData = () => {
-		if (typeof roundedCropper !== 'undefined') {
+		if (typeof roundedCropper !== "undefined") {
 			roundedCropper.getCroppedCanvas().toBlob(
 				(blob) => {
 					const url = URL.createObjectURL(blob!);
@@ -55,12 +55,12 @@ export const ModalCropper: React.FC<IModalCropper> = (props) => {
 					const file =
 						blob &&
 						new File([blob], fileName, {
-							type: 'image/jpg',
+							type: "image/jpg",
 						});
 					file && props.setInputFile(file);
 					props.handleClose();
 				},
-				'image/jpg',
+				"image/jpg",
 				1
 			);
 		}
@@ -83,35 +83,35 @@ export const ModalCropper: React.FC<IModalCropper> = (props) => {
 			handleClose={props.handleClose}
 			title={
 				props.step === 1
-					? 'Загрузка новой фотографии'
+					? "Загрузка новой фотографии"
 					: props.step === 2
-					? 'Фотография на вашем аккаунте'
+					? "Фотография на вашем аккаунте"
 					: props.step === 3
-					? 'Выбор миниатюры'
-					: ''
+					? "Выбор миниатюры"
+					: ""
 			}
 			desc_1={
 				props.step === 1
-					? 'Друзьям будет проще узнать вас, если вы загрузите свою настоящую фотографию.'
+					? "Друзьям будет проще узнать вас, если вы загрузите свою настоящую фотографию."
 					: props.step === 2
-					? 'Выбранная область будет показываться на вашем аккаунте.'
+					? "Выбранная область будет показываться на вашем аккаунте."
 					: props.step === 3
-					? 'Выберите область для маленьких фотографий.'
-					: ''
+					? "Выберите область для маленьких фотографий."
+					: ""
 			}
 			desc_2={
 				props.step === 1
-					? 'Вы можете загрузить изображение в формате JPG, GIF или PNG.'
+					? "Вы можете загрузить изображение в формате JPG, GIF или PNG."
 					: props.step === 2
-					? 'Если изображение ориентировано неправильно, фотографию можно повернуть.'
+					? "Если изображение ориентировано неправильно, фотографию можно повернуть."
 					: props.step === 3
-					? 'Выбранная миниатюра будет использоваться в новостях, личных сообщениях и комментариях.'
-					: ''
+					? "Выбранная миниатюра будет использоваться в новостях, личных сообщениях и комментариях."
+					: ""
 			}
 			bottomText={
 				props.step === 1
-					? 'Если у вас возникают проблемы с загрузкой, попробуйте выбрать фотографию меньшего размера.'
-					: ''
+					? "Если у вас возникают проблемы с загрузкой, попробуйте выбрать фотографию меньшего размера."
+					: ""
 			}
 			backButton={
 				props.step === 2
@@ -119,11 +119,11 @@ export const ModalCropper: React.FC<IModalCropper> = (props) => {
 							props.prevStep();
 							props.setInputFile(undefined);
 							props.setOriginalInputFile(undefined);
-							setImage('');
+							setImage("");
 					  }
 					: props.prevStep
 			}
-			backButtonTitle={'Вернуться назад'}
+			backButtonTitle={"Вернуться назад"}
 			nextButton={
 				props.step === 2
 					? () => {
@@ -134,7 +134,7 @@ export const ModalCropper: React.FC<IModalCropper> = (props) => {
 							getRoundedCropData();
 					  }
 			}
-			nextButtonTitle={'Сохранить и продолжить'}
+			nextButtonTitle={"Сохранить и продолжить"}
 		>
 			<ImageCropper
 				step={props.step}
@@ -151,3 +151,4 @@ export const ModalCropper: React.FC<IModalCropper> = (props) => {
 		</Modal>
 	);
 };
+export default memo(ModalCropper);

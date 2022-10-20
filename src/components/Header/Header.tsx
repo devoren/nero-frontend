@@ -1,20 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Button from '@mui/material/Button';
+import React, { memo } from "react";
+import { Link } from "react-router-dom";
+import Button from "@mui/material/Button";
 
-import styles from './Header.module.scss';
-import Container from '@mui/material/Container';
-import { IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import styles from "./Header.module.scss";
+import Container from "@mui/material/Container";
+import { IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-import { useToken } from '../../hooks/useToken';
+import { useToken } from "../../hooks/useToken";
 
-import { useLogoutMutation } from '../../store/auth/auth.api';
-import { persistor, useAppDispatch } from '../../store/store';
-import { logOut } from '../../store/auth/auth.slice';
+import { useLogoutMutation } from "../../store/auth/auth.api";
+import { persistor, useAppDispatch } from "../../store/store";
+import { logOut } from "../../store/auth/auth.slice";
 
 const Header = () => {
 	const dispatch = useAppDispatch();
@@ -102,4 +102,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default memo(Header);

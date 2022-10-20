@@ -1,15 +1,15 @@
-import React from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import CommentsBlock from '../../components/CommentsBlock';
-import Post, { PostSkeleton } from '../../components/Post';
-import { useAuth } from '../../hooks/useAuth';
-import { useToken } from '../../hooks/useToken';
+import React, { memo } from "react";
+import { Navigate, useParams } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import CommentsBlock from "../../components/CommentsBlock";
+import Post, { PostSkeleton } from "../../components/Post";
+import { useAuth } from "../../hooks/useAuth";
+import { useToken } from "../../hooks/useToken";
 import {
 	useGetPostQuery,
 	useGetCommentsQuery,
-} from '../../store/post/post.api';
-import AddComment from '../../components/AddComment';
+} from "../../store/post/post.api";
+import AddComment from "../../components/AddComment";
 
 const PostPage = () => {
 	const { id } = useParams();
@@ -23,7 +23,7 @@ const PostPage = () => {
 	}
 
 	if (!post) {
-		return <Navigate to={'/'} replace />;
+		return <Navigate to={"/"} replace />;
 	}
 
 	return (
@@ -46,7 +46,12 @@ const PostPage = () => {
 			>
 				<ReactMarkdown children={post.text} />
 			</Post>
-			<CommentsBlock items={comments} isLoading={false} refetch={refetch}>
+			<CommentsBlock
+				items={comments}
+				isLoading={false}
+				refetch={refetch}
+				isPost={true}
+			>
 				{token && user && (
 					<AddComment postId={post._id} refetch={refetch} />
 				)}
@@ -54,4 +59,4 @@ const PostPage = () => {
 		</>
 	);
 };
-export default PostPage;
+export default memo(PostPage);

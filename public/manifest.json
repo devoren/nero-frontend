@@ -1,6 +1,6 @@
 {
-	"short_name": "Nero Blog",
-	"name": "Nero Blog",
+	"short_name": "Nero",
+	"name": "Nero",
 	"icons": [
 		{
 			"src": "favicon.ico",
@@ -13,13 +13,25 @@
 			"sizes": "192x192"
 		},
 		{
+			"src": "maskable_icon192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any maskable"
+		},
+		{
 			"src": "logo512.png",
 			"type": "image/png",
 			"sizes": "512x512"
+		},
+		{
+			"src": "maskable_icon512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any maskable"
 		}
 	],
 	"start_url": ".",
 	"display": "standalone",
-	"theme_color": "#000000",
+	"theme_color": "#4361ee",
 	"background_color": "#ffffff"
 }

@@ -33,8 +33,11 @@ const Home = () => {
 	});
 
 	const { data: tags, isLoading: isTagLoading } = useGetLastTagsQuery();
-	const { data: comments, isLoading: isCommentLoading } =
-		useGetLastCommentsQuery();
+	const {
+		data: comments,
+		isLoading: isCommentLoading,
+		refetch: refetchComments,
+	} = useGetLastCommentsQuery();
 
 	const { user } = useAuth();
 
@@ -52,20 +55,12 @@ const Home = () => {
 				}}
 			>
 				<TagsBlock items={tags!} isLoading={isTagLoading} />
-				{comments && (
-					<Box
-						sx={{
-							display: { xs: 'none', sm: 'flex', md: 'none' },
-						}}
-					>
-						<CommentsBlock
-							items={comments}
-							isLoading={isCommentLoading}
-							refetch={() => {}}
-							isDelete={false}
-						/>
-					</Box>
-				)}
+				<CommentsBlock
+					items={comments!}
+					isLoading={isCommentLoading}
+					refetch={refetchComments}
+					isDelete={false}
+				/>
 			</Box>
 			<Tabs
 				style={{ marginBottom: 15 }}
@@ -112,14 +107,12 @@ const Home = () => {
 				</Grid>
 				<Grid md={4} item sx={{ display: { xs: 'none', md: 'block' } }}>
 					<TagsBlock items={tags!} isLoading={isTagLoading} />
-					{comments && (
-						<CommentsBlock
-							items={comments}
-							isLoading={isCommentLoading}
-							refetch={() => {}}
-							isDelete={false}
-						/>
-					)}
+					<CommentsBlock
+						items={comments!}
+						isLoading={isCommentLoading}
+						refetch={refetchComments}
+						isDelete={false}
+					/>
 				</Grid>
 			</Grid>
 		</>
