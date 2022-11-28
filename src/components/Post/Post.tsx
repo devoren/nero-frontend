@@ -76,7 +76,6 @@ const Post = (props: IPost) => {
 					style={{
 						pointerEvents: "none",
 					}}
-					loading="lazy"
 				/>
 			)}
 			<div className={styles.wrapper}>
